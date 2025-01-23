@@ -1,7 +1,10 @@
 import React from "react";
-import { View, Text, TextInput, Button, StyleSheet, Alert } from "react-native";
+import { View, Text, StyleSheet, Alert } from "react-native";
 import { useForm, Controller } from "react-hook-form";
 import { useAddBook } from "@/hooks/bookHook";
+import { useRouter } from "expo-router";
+import { Button } from "react-native-paper";
+import { TextInput } from "react-native-paper";
 
 interface BookFormValues {
   title: string;
@@ -12,6 +15,7 @@ interface BookFormValues {
 }
 
 export function CreateBookForm() {
+  const router = useRouter();
   const { control, handleSubmit, reset } = useForm<BookFormValues>({
     defaultValues: {
       title: "",
@@ -27,8 +31,8 @@ export function CreateBookForm() {
   const onSubmit = (data: BookFormValues) => {
     addBook(data, {
       onSuccess: () => {
-        Alert.alert("Success", "Book added successfully!");
-        reset(); // Reset form fields
+        Alert.alert("Success", "Book Created successfully!");
+        router.replace("/");
       },
       onError: (error) => {
         Alert.alert("Error", "Failed to add the book.");
@@ -39,7 +43,7 @@ export function CreateBookForm() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.heading}>Add New Book</Text>
+      <Text style={styles.heading}>Create New Book</Text>
 
       {/* Title Input */}
       <Controller
@@ -49,8 +53,9 @@ export function CreateBookForm() {
         render={({ field: { onChange, value }, fieldState: { error } }) => (
           <View style={styles.inputContainer}>
             <TextInput
-              style={[styles.input, error && styles.errorInput]}
-              placeholder="Title"
+              mode="outlined"
+              label="Title"
+              style={[error && styles.errorInput]}
               value={value}
               onChangeText={onChange}
             />
@@ -67,8 +72,9 @@ export function CreateBookForm() {
         render={({ field: { onChange, value }, fieldState: { error } }) => (
           <View style={styles.inputContainer}>
             <TextInput
-              style={[styles.input, error && styles.errorInput]}
-              placeholder="Category"
+              mode="outlined"
+              label="Category"
+              style={[error && styles.errorInput]}
               value={value}
               onChangeText={onChange}
             />
@@ -85,11 +91,11 @@ export function CreateBookForm() {
         render={({ field: { onChange, value }, fieldState: { error } }) => (
           <View style={styles.inputContainer}>
             <TextInput
-              style={[styles.input, error && styles.errorInput]}
-              placeholder="Description"
+              mode="outlined"
+              label="Description"
+              style={[error && styles.errorInput]}
               value={value}
               onChangeText={onChange}
-              multiline
             />
             {error && <Text style={styles.errorText}>{error.message}</Text>}
           </View>
@@ -104,8 +110,9 @@ export function CreateBookForm() {
         render={({ field: { onChange, value }, fieldState: { error } }) => (
           <View style={styles.inputContainer}>
             <TextInput
-              style={[styles.input, error && styles.errorInput]}
-              placeholder="Definition Language"
+              mode="outlined"
+              label="definitionLanguage"
+              style={[error && styles.errorInput]}
               value={value}
               onChangeText={onChange}
             />
@@ -122,8 +129,9 @@ export function CreateBookForm() {
         render={({ field: { onChange, value }, fieldState: { error } }) => (
           <View style={styles.inputContainer}>
             <TextInput
-              style={[styles.input, error && styles.errorInput]}
-              placeholder="Term Language"
+              mode="outlined"
+              label="termLanguage"
+              style={[error && styles.errorInput]}
               value={value}
               onChangeText={onChange}
             />
@@ -133,7 +141,9 @@ export function CreateBookForm() {
       />
 
       {/* Submit Button */}
-      <Button title={"Add Book"} onPress={handleSubmit(onSubmit)} />
+      <Button mode="contained" onPress={handleSubmit(onSubmit)}>
+        Create Book
+      </Button>
     </View>
   );
 }
@@ -151,13 +161,7 @@ const styles = StyleSheet.create({
   inputContainer: {
     marginBottom: 12,
   },
-  input: {
-    borderWidth: 1,
-    borderColor: "#ccc",
-    borderRadius: 8,
-    padding: 10,
-    fontSize: 16,
-  },
+
   errorInput: {
     borderColor: "red",
   },

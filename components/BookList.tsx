@@ -50,6 +50,7 @@ export function BookList() {
           />
         )}
         ItemSeparatorComponent={() => <View style={styles.separator} />}
+        ListFooterComponent={<View style={{ height: 110 }} />}
       />
     </View>
   );
@@ -58,8 +59,9 @@ export function BookList() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 10,
-    textAlign: "center",
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+    marginBottom: 10,
   },
   separator: {
     height: 16, // Gap between items

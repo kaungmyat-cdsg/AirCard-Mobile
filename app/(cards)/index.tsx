@@ -1,5 +1,12 @@
 import { Image, StyleSheet, Platform } from "react-native";
-import { Button, Card, IconButton, MD3Colors, Text } from "react-native-paper";
+import {
+  Appbar,
+  Button,
+  Card,
+  IconButton,
+  MD3Colors,
+  Text,
+} from "react-native-paper";
 import { View } from "react-native";
 import { useRouter } from "expo-router";
 import React from "react";
@@ -11,24 +18,20 @@ export default function HomeScreen() {
   return (
     <>
       <View style={styles.container}>
-        <Card style={styles.header} elevation={3}>
-          <Card.Content>
-            <IconButton
-              icon="menu"
-              iconColor={MD3Colors.primary0}
-              size={30}
-              onPress={() => console.log("Pressed")}
-            />
-          </Card.Content>
-        </Card>
-        <BookList />
+        <Appbar.Header style={{ elevation: 10 }}>
+          <Appbar.Action icon="menu" onPress={() => {}} />
+          <Appbar.Content title="Book List" />
+        </Appbar.Header>
+        <View style={{ alignItems: "center" }}>
+          <BookList />
+        </View>
       </View>
       <View style={{ alignItems: "center" }}>
         <Button
           mode="contained"
           icon="plus"
           style={{
-            marginBottom: 100,
+            marginBottom: 50,
             width: "50%",
           }}
           onPress={() => router.replace("/createBook")}
@@ -43,12 +46,8 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    gap: 40,
-    alignItems: "center",
   },
-  header: {
-    width: "100%",
-    backgroundColor: "#fff",
-    borderRadius: 0,
+  separator: {
+    height: 16, // Gap between items
   },
 });
