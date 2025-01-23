@@ -1,10 +1,11 @@
 import React from "react";
 import { View, Text, StyleSheet, Alert } from "react-native";
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { useAddBook } from "@/hooks/bookHook";
 import { useRouter } from "expo-router";
 import { Button } from "react-native-paper";
-import { TextInput } from "react-native-paper";
+import { FormInput } from "./FromInput";
+import { ScrollView } from "react-native";
 
 interface BookFormValues {
   title: string;
@@ -16,7 +17,7 @@ interface BookFormValues {
 
 export function CreateBookForm() {
   const router = useRouter();
-  const { control, handleSubmit, reset } = useForm<BookFormValues>({
+  const { control, handleSubmit } = useForm<BookFormValues>({
     defaultValues: {
       title: "",
       category: "",
@@ -42,132 +43,58 @@ export function CreateBookForm() {
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.scrollContainer}>
       <Text style={styles.heading}>Create New Book</Text>
 
-      {/* Title Input */}
-      <Controller
-        control={control}
+      {/* Using FormInput for all fields */}
+      <FormInput
         name="title"
+        label="Title"
+        control={control}
         rules={{ required: "Title is required" }}
-        render={({ field: { onChange, value }, fieldState: { error } }) => (
-          <View style={styles.inputContainer}>
-            <TextInput
-              mode="outlined"
-              label="Title"
-              style={[error && styles.errorInput]}
-              value={value}
-              onChangeText={onChange}
-            />
-            {error && <Text style={styles.errorText}>{error.message}</Text>}
-          </View>
-        )}
       />
-
-      {/* Category Input */}
-      <Controller
-        control={control}
+      <FormInput
         name="category"
+        label="Category"
+        control={control}
         rules={{ required: "Category is required" }}
-        render={({ field: { onChange, value }, fieldState: { error } }) => (
-          <View style={styles.inputContainer}>
-            <TextInput
-              mode="outlined"
-              label="Category"
-              style={[error && styles.errorInput]}
-              value={value}
-              onChangeText={onChange}
-            />
-            {error && <Text style={styles.errorText}>{error.message}</Text>}
-          </View>
-        )}
       />
-
-      {/* Description Input */}
-      <Controller
-        control={control}
+      <FormInput
         name="description"
+        label="Description"
+        control={control}
         rules={{ required: "Description is required" }}
-        render={({ field: { onChange, value }, fieldState: { error } }) => (
-          <View style={styles.inputContainer}>
-            <TextInput
-              mode="outlined"
-              label="Description"
-              style={[error && styles.errorInput]}
-              value={value}
-              onChangeText={onChange}
-            />
-            {error && <Text style={styles.errorText}>{error.message}</Text>}
-          </View>
-        )}
       />
-
-      {/* Definition Language Input */}
-      <Controller
-        control={control}
+      <FormInput
         name="definitionLanguage"
-        rules={{ required: "Definition Language is required" }}
-        render={({ field: { onChange, value }, fieldState: { error } }) => (
-          <View style={styles.inputContainer}>
-            <TextInput
-              mode="outlined"
-              label="definitionLanguage"
-              style={[error && styles.errorInput]}
-              value={value}
-              onChangeText={onChange}
-            />
-            {error && <Text style={styles.errorText}>{error.message}</Text>}
-          </View>
-        )}
-      />
-
-      {/* Term Language Input */}
-      <Controller
+        label="Definition Language"
         control={control}
+        rules={{ required: "Definition Language is required" }}
+      />
+      <FormInput
         name="termLanguage"
+        label="Term Language"
+        control={control}
         rules={{ required: "Term Language is required" }}
-        render={({ field: { onChange, value }, fieldState: { error } }) => (
-          <View style={styles.inputContainer}>
-            <TextInput
-              mode="outlined"
-              label="termLanguage"
-              style={[error && styles.errorInput]}
-              value={value}
-              onChangeText={onChange}
-            />
-            {error && <Text style={styles.errorText}>{error.message}</Text>}
-          </View>
-        )}
       />
 
-      {/* Submit Button */}
       <Button mode="contained" onPress={handleSubmit(onSubmit)}>
         Create Book
       </Button>
-    </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  scrollContainer: {
     padding: 16,
   },
   heading: {
     fontSize: 20,
     fontWeight: "bold",
     marginBottom: 16,
-  },
-  inputContainer: {
-    marginBottom: 12,
-  },
-
-  errorInput: {
-    borderColor: "red",
-  },
-  errorText: {
-    color: "red",
-    fontSize: 14,
-    marginTop: 4,
   },
 });

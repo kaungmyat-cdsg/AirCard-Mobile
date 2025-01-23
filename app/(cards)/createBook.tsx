@@ -1,5 +1,5 @@
 import { StyleSheet, Image, Platform, View } from "react-native";
-import { Appbar, Card, IconButton, MD3Colors } from "react-native-paper";
+import { Appbar } from "react-native-paper";
 import { useRouter } from "expo-router";
 import { CreateBookForm } from "@/components/CreateBookForm";
 
@@ -19,12 +19,5 @@ export default function CreateBook() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  header: {
-    width: "100%",
-    backgroundColor: "#fff",
-    borderRadius: 0,
-    height: 50,
-    paddingTop: Platform.OS === "android" ? 10 : 0,
   },
 });
