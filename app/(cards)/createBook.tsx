@@ -1,12 +1,13 @@
 import { StyleSheet, Image, Platform, View } from "react-native";
 import { Card, IconButton, MD3Colors } from "react-native-paper";
 import { useRouter } from "expo-router";
+import { CreateBookForm } from "@/components/createBookForm";
 
-export default function TabTwoScreen() {
+export default function CreateBook() {
   const router = useRouter();
   return (
     <View style={styles.container}>
-      <Card style={styles.header}>
+      <Card style={styles.header} elevation={3}>
         <Card.Content>
           <IconButton
             icon="arrow-left"
@@ -16,6 +17,7 @@ export default function TabTwoScreen() {
           />
         </Card.Content>
       </Card>
+      <CreateBookForm />
     </View>
   );
 }
@@ -23,12 +25,10 @@ export default function TabTwoScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
   },
   header: {
     width: "100%",
     backgroundColor: "#fff",
-    marginBottom: 100,
     borderRadius: 0,
   },
 });

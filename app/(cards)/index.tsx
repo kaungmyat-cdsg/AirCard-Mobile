@@ -3,7 +3,7 @@ import { Button, Card, IconButton, MD3Colors, Text } from "react-native-paper";
 import { View } from "react-native";
 import { useRouter } from "expo-router";
 import React from "react";
-import { CardLists } from "@/components/CardList";
+import { BookList } from "@/components/BookList";
 
 export default function HomeScreen() {
   const router = useRouter();
@@ -21,7 +21,7 @@ export default function HomeScreen() {
             />
           </Card.Content>
         </Card>
-        <CardLists />
+        <BookList />
       </View>
       <View style={{ alignItems: "center" }}>
         <Button
@@ -31,9 +31,9 @@ export default function HomeScreen() {
             marginBottom: 100,
             width: "50%",
           }}
-          onPress={() => router.replace("/addCard")}
+          onPress={() => router.replace("/createBook")}
         >
-          Add Card
+          Add Book
         </Button>
       </View>
     </>
