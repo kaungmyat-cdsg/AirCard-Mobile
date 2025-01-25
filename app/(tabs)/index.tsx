@@ -10,14 +10,15 @@ import {
 import { View } from "react-native";
 import { useRouter } from "expo-router";
 import React from "react";
-import { BookList } from "@/components/BookList";
+import { Box } from "native-base";
+import { BookList } from "@/components/HomePage/BookList";
 
 export default function HomeScreen() {
   const router = useRouter();
 
   return (
     <>
-      <View style={styles.container}>
+      <Box bg="primary.100" flex={1}>
         <Appbar.Header style={{ elevation: 10 }}>
           <Appbar.Action icon="menu" onPress={() => {}} />
           <Appbar.Content title="Book List" />
@@ -25,19 +26,19 @@ export default function HomeScreen() {
         <View style={{ alignItems: "center" }}>
           <BookList />
         </View>
-      </View>
+      </Box>
       <View style={{ alignItems: "center" }}>
-        <Button
+        {/* <Button
           mode="contained"
           icon="plus"
           style={{
             marginBottom: 50,
             width: "50%",
           }}
-          onPress={() => router.replace("/createBook")}
+          onPress={() => console.log("Pressed")}
         >
           Add Book
-        </Button>
+        </Button> */}
       </View>
     </>
   );

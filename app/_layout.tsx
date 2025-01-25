@@ -5,6 +5,7 @@ import { NativeBaseProvider, Text, Box, extendTheme } from "native-base";
 export default function RootLayout() {
   const theme = extendTheme({
     colors: {
+      white: "#fff",
       // Add new color
       primary: {
         50: "#E3F2F9",
@@ -31,8 +32,8 @@ export default function RootLayout() {
   return (
     <NativeBaseProvider theme={theme}>
       <Stack>
-        {/* <Stack.Screen name="(tabs)" options={{ headerShown: false }} /> */}
-        <Stack.Screen name="(cards)" options={{ headerShown: false }} />
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        {/* <Stack.Screen name="(cards)" options={{ headerShown: false }} /> */}
         {/* <Stack.Screen name="index" options={{ headerShown: false }} />
         <Stack.Screen name="addCard" options={{ title: "Add Card" }} /> */}
         <Stack.Screen name="+not-found" />
