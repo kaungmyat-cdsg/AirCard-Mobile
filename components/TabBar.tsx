@@ -119,15 +119,15 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     backgroundColor: theme.colors.white,
-    marginHorizontal: 20,
-    paddingVertical: 5,
+    marginHorizontal: 57,
+    paddingVertical: 9,
     borderRadius: 100,
     elevation: 5,
   },
-  //   tabbarItem: {
-  //     flex: 1,
-  //     justifyContent: "center",
-  //     alignItems: "center",
-  //     gap: 5,
-  //   },
+  tabbarItem: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 5,
+  },
 });

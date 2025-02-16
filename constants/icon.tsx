@@ -7,12 +7,12 @@ type FeatherIconProps = {
 
 export const icon: Record<string, (props: FeatherIconProps) => JSX.Element> = {
   index: (props: FeatherIconProps) => (
-    <Feather name="home" size={24} {...props} />
+    <Feather name="home" size={20} {...props} />
   ),
-  explore: (props: FeatherIconProps) => (
-    <Feather name="compass" size={24} {...props} />
+  add: (props: FeatherIconProps) => (
+    <Feather name="plus-circle" size={20} {...props} />
   ),
   profile: (props: FeatherIconProps) => (
-    <Feather name="user" size={24} {...props} />
+    <Feather name="user" size={20} {...props} />
   ),
 };

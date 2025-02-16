@@ -2,12 +2,11 @@ import {
   View,
   StyleSheet,
   TouchableOpacity,
-  Pressable,
   Dimensions,
+  Text,
 } from "react-native";
 import React from "react";
-import { Card, Text, MD3Colors } from "react-native-paper";
-import { Box, Button } from "native-base";
+import { IconButton, TouchableRipple } from "react-native-paper";
 
 interface CardItemProps {
   title: string;
@@ -27,42 +26,50 @@ export function BookItem({
   onPress,
 }: CardItemProps) {
   return (
-    <Box>
-      <TouchableOpacity style={styles.button} onPress={onPress}>
-        {/* <Card style={styles.container} elevation={5}>
-          <Card.Content style={{ backgroundColor: "rgba(255, 255, 255, .0)" }}>
-            <Text variant="titleLarge" style={styles.buttonText}>
-              {title}
-            </Text>
-          </Card.Content>
-        </Card> */}
-        <Text variant="titleLarge">{title}</Text>
-        <Text variant="bodySmall">{description}</Text>
-        <Text variant="bodySmall">{category}</Text>
-        <Button
-          size="sm"
-          variant="subtle"
-          colorScheme="primary"
-          onPress={() => alert("Review")}
-        >
-          Review
-        </Button>
-      </TouchableOpacity>
-    </Box>
+    <View>
+      <TouchableRipple style={styles.container} onPress={onPress}>
+        {/* Main Content */}
+        <View style={styles.contentContainer}>
+          {/* Left Section (Title and Category) */}
+          <View style={styles.leftSection}>
+            <Text>{title}</Text>
+            <Text>{description}</Text>
+            <Text>{category}</Text>
+          </View>
+
+          {/* Right Section (IconButton) */}
+          <View style={styles.rightSection}>
+            <IconButton
+              icon="book"
+              iconColor="black"
+              size={20}
+              onPress={() => console.log("Pressed")}
+            />
+          </View>
+        </View>
+      </TouchableRipple>
+    </View>
   );
 }
+
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    width: Dimensions.get("screen").width - 20,
-    backgroundColor: "colors.primary.100",
-  },
-  button: {
     width: "100%",
     backgroundColor: "#fff",
     padding: 10,
-    borderRadius: 5,
+    borderRadius: 10,
     justifyContent: "center",
     elevation: 5,
+  },
+  contentContainer: {
+    flex: 1, // Take up available space
+    width: "100%",
+    flexDirection: "row", // Arrange children in a row
+    alignItems: "center", // Vertically center align children
+    justifyContent: "space-between", // Space out children
+  },
+  leftSection: {},
+  rightSection: {
+    justifyContent: "flex-end", // Align icon to the right
   },
 });

@@ -1,45 +1,48 @@
-import { Image, StyleSheet, Platform } from "react-native";
+import { Image, StyleSheet, Platform, TextInput, Animated } from "react-native";
 import {
   Appbar,
   Button,
   Card,
   IconButton,
   MD3Colors,
+  Modal,
+  Portal,
   Text,
 } from "react-native-paper";
-import { View } from "react-native";
+import { View, ScrollView } from "react-native";
 import { useRouter } from "expo-router";
-import React from "react";
-import { Box } from "native-base";
+import React, { useEffect, useState } from "react";
 import { BookList } from "@/components/HomePage/BookList";
-
+import SearchBar from "@/components/HomePage/SearchBar";
+import { useModalStore } from "@/hooks/bookStore";
+import AddModal from "@/components/HomePage/AddModal";
 export default function HomeScreen() {
   const router = useRouter();
+  const [showSearchBar, setShowSearchBar] = useState(false);
+  const { visible, hideModal } = useModalStore((state) => state);
+  const containerStyle = { backgroundColor: "white", padding: 20, margin: 20 };
+
+  const handleSearchPress = () => {
+    setShowSearchBar((prevState) => !prevState);
+  };
 
   return (
     <>
-      <Box bg="primary.100" flex={1}>
+      <View>
         <Appbar.Header style={{ elevation: 10 }}>
-          <Appbar.Action icon="menu" onPress={() => {}} />
           <Appbar.Content title="Book List" />
+          <Appbar.Action
+            icon={showSearchBar ? "close" : "magnify"}
+            onPress={() => handleSearchPress()}
+          />
         </Appbar.Header>
-        <View style={{ alignItems: "center" }}>
-          <BookList />
-        </View>
-      </Box>
-      <View style={{ alignItems: "center" }}>
-        {/* <Button
-          mode="contained"
-          icon="plus"
-          style={{
-            marginBottom: 50,
-            width: "50%",
-          }}
-          onPress={() => console.log("Pressed")}
-        >
-          Add Book
-        </Button> */}
+        {showSearchBar ? <SearchBar /> : null}
+
+        <BookList showSearchBar={showSearchBar} />
+
+        <AddModal visible={visible} hideModal={hideModal} />
       </View>
+      <View style={{ alignItems: "center" }}></View>
     </>
   );
 }

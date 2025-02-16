@@ -2,26 +2,30 @@ const { request } = require("express");
 const mongoose = require("mongoose");
 
 const CardSchema = mongoose.Schema(
-    {
-      term: {
-        type: String,
-        required: [true, "Term is required"],
-      },
-      definition: {
-        type: String,
-        required: [true, "Definition is required"],
-      },
-      examples: {
-        type: [String], // Array of strings to store multiple examples
-        required: false,
-      },
-      multipleAnswers: {
-        type: [String], // Array of strings for multiple possible answers
-        required: false,
-      },
+  {
+    term: {
+      type: String,
+      required: [true, "Term is required"],
     },
-    { _id: false } // Prevent automatic creation of an `_id` field for each card
-  );
+    definition: {
+      type: String,
+      required: [true, "Definition is required"],
+    },
+    examples: {
+      type: [String], // Array of strings to store multiple examples
+      required: false,
+    },
+    multipleAnswers: {
+      type: [String], // Array of strings for multiple possible answers
+      required: false,
+    },
+    bookId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Book', // Reference to the Book model
+      required: true, // Ensure the card is linked to a book
+    }
+  },
+);
 
 const BookSchema  = mongoose.Schema(
   {
@@ -29,54 +33,43 @@ const BookSchema  = mongoose.Schema(
       type : String,
       required : [true],
       unique : true
-  },
-  description :{
-        type : String,
-        required : [false],
+    },
+    description :{
+      type : String,
+      required : [false],
     },
     termLanguage :{
-        type : String,
-        required : [true],
-        default : "English"
+      type : String,
+      required : [true],
+      enum: ["English", "Japanese", "Korean"],
+      default : "English"
     },
     definitionLanguage :{
-        type : String,
-        required : [true],
-        default : "English"
+      type : String,
+      required : [true],
+      enum: ["English", "Japanese", "Korean"],
+      default : "English"
     },
     category:{
       type: String,
       required: true,
-      default: "None"
+      default: "All"
     },
     image: {
       type: String,
-      requeired: false,
+      required: false,
     },
-    cards: {
-        type: [CardSchema], // Array of CardSchema objects
-        required: false,
-      },
+    cards: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Card', // Array of references to Card model
+    }],
   },
   {
     timestamps: true,
   },
 );
 
-// const BookSchema = new mongoose.Schema({
-//   userId: String,
-//   products: [
-//     {
-//       productId: mongoose.Schema.Types.ObjectId,
-//       name: String,
-//       price: Number,
-//       quantity: Number,
-//       category: String,
-//     },
-//   ],
-// });
-
 module.exports = {
   Book: mongoose.model('Book', BookSchema),
-//   Cart: mongoose.model('Cart', CartSchema),
+  Card: mongoose.model('Card', CardSchema), // Add Card model for reference
 };
